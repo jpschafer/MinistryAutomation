@@ -1,0 +1,35 @@
+# Importing the regular expression module
+import re
+
+# Defining a function to process the text with a regular expression
+def process_text_with_regex(text):
+    # The regular expression pattern to match the year in the text
+    # It looks for a word boundary, followed by a capital letter 'Y', followed by a colon, 
+    # followed by a space, and then captures one or more word characters as a group
+    pattern = r"((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(?:((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(?:or (?:(?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))?))(?: +)((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(?:https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))"
+
+    # Using the re.search function to find the first occurrence of the pattern in the text
+    text = text.replace('\n', ' ').replace('\r', '')
+    match = re.search(pattern,  text)
+
+    # Checking if a match was found
+    if match:
+        print(match)
+        # If a match was found, returning the matched group (the year)
+        return f"{match.group(1)}, {match.group(4)}"
+    else:
+        # If no match was found, returning None
+        return None
+
+# Getting the text from the input data
+text = input_data["text"]
+
+# Calling the function to process the text with the regular expression
+print(text)
+processed_text = process_text_with_regex(text)
+
+# Printing the processed text
+print(processed_text)
+
+# Creating a dictionary to store the output
+output = {"processed_text": processed_text}
