@@ -1,8 +1,6 @@
 import re
 
-# Test String
-rcl_test_string = "Jeremiah 31:31-34  Psalm 51:1-12  or  Psalm 119:9-16  Hebrews 5:5-10  John 12:20-33    https://rclstaging.233analytics.com/texts/?y=382&z=l&d=29"
-
-rcl_regex = re.search(r"((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(?:((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(?:or (?:(?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))?))(?: +)((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(?:https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))", rcl_test_string)
-
-print(result.groups())
+with open('rcl_reg.txt', 'r') as rcl_regex_string:
+  with open('rcl_reg_test_data.txt', 'r') as rcl_test_string:
+    rcl_regex = re.search( f'({rcl_regex_sring})', rcl_test_string)    
+    print(result.groups())
