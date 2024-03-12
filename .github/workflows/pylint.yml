@@ -23,4 +23,5 @@ jobs:
         pylint $(git ls-files '*.py')
     - name: Run RCL Reg
       run: |
-        python3 ./rcl/rcl_reg.py
+        cd ./rcl
+        python3 rcl_reg.py
