@@ -1,3 +1,4 @@
+""" Zapier Module that Process RCL Calendar Description to retrieve Non-Psalter Old Testament Reading and Gospel Reading as well as URL of Lectionary Week """
 # Importing the regular expression module
 import re
 
@@ -6,7 +7,7 @@ def process_text_with_regex(text):
     # The regular expression pattern to match the year in the text
     # It looks for a word boundary, followed by a capital letter 'Y', followed by a colon, 
     # followed by a space, and then captures one or more word characters as a group
-    pattern = r"((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(?:((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(?:or (?:(?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))?))(?: +)((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(?:https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))"
+    pattern = r"((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(?:((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(?:or (?:(?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))?))(?: +)((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)((?:[\d ]*[a-zA-Z]+(?: \d*:\d*)?)(?:(?: - )| )?(?:(?:(?:\d* )?[a-zA-Z]+ )?\d*(?:[:-]+\d*)?))(?: +)(https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*))"
 
     # Using the re.search function to find the first occurrence of the pattern in the text
     text = text.replace('\n', ' ').replace('\r', '')
@@ -16,7 +17,7 @@ def process_text_with_regex(text):
     if match:
         print(match)
         # If a match was found, returning the matched group (the year)
-        return f"{match.group(1)}, {match.group(4)}"
+        return f"{match.group(1)}, {match.group(4)}", match.group(5)
     else:
         # If no match was found, returning None
         return None
@@ -26,10 +27,10 @@ text = input_data["text"]
 
 # Calling the function to process the text with the regular expression
 print(text)
-processed_text = process_text_with_regex(text)
+readings, url = process_text_with_regex(text)
 
 # Printing the processed text
-print(processed_text)
+print(readings, url)
 
 # Creating a dictionary to store the output
-output = {"processed_text": processed_text}
+output = {"readings": readings, "url": url}
