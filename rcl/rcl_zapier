@@ -30,10 +30,6 @@ def publish_facebook_post(input_data, readings, url):
     # Define the access token for the Facebook Graph API
     access_token = input_data.get("access_token")
 
-    # Define the URL for the Facebook Graph API endpoint to publish a post
-    url_1 = f"https://graph.facebook.com/v14.0/{input_data['page_id_1']}/feed"
-    url_2 = f"https://graph.facebook.com/v14.0/{input_data['page_id_2']}/feed"
-
     # Define the headers for the HTTP request
     headers = {
         "Authorization": f"Bearer {access_token}",  # Include the access token in the Authorization header
@@ -64,7 +60,11 @@ print(text)
 readings, url = process_text_with_regex(text)
 
 # Printing the processed text
-print(readings, URL)
+print(readings, url)
+
+# Define the URL for the Facebook Graph API endpoint to publish a post
+url_1 = f"https://graph.facebook.com/v14.0/{input_data['page_id_1']}/feed"
+url_2 = f"https://graph.facebook.com/v14.0/{input_data['page_id_2']}/feed"
 
 # Publish to Facebook
 response_1 = publish_facebook_post(input_data, readings, url_1)
