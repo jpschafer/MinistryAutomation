@@ -43,7 +43,7 @@ def publish_facebook_post(input_data, readings, url, fb_page_token, page_url):
     }
 
     # Send a POST request to the Facebook Graph API endpoint to publish the post
-    response = requests.post(url, headers=headers, data=json.dumps(data))
+    response = requests.post(page_url, headers=headers, data=json.dumps(data))
 
     # Print the response from the API
     print(response.text)
@@ -68,3 +68,5 @@ url_2 = f"https://graph.facebook.com/v14.0/{input_data['page_id_2']}/feed"
 # Publish to Facebook
 response_1 = publish_facebook_post(input_data, readings, url, input_data["page_token_1"], page_url_1)
 response_2 = publish_facebook_post(input_data, readings, url, input_data["page_token_2"], page_url_2)
+
+output = {"readings": readings, "url": url, "response_1", response_1 "response_2", response_2}
