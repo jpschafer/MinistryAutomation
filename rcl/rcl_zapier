@@ -26,13 +26,13 @@ def process_text_with_regex(text):
         # If no match was found, returning None
         return None
 
-def publish_facebook_post(input_data, readings, url):
+def publish_facebook_post(input_data, readings, fb_page_token, url):
     # Define the access token for the Facebook Graph API
     access_token = input_data.get("access_token")
 
     # Define the headers for the HTTP request
     headers = {
-        "Authorization": f"Bearer {access_token}",  # Include the access token in the Authorization header
+        "Authorization": f"Bearer {fb_page_token}",  # Include the access token in the Authorization header
         "Content-Type": "application/json",  # Specify the content type as JSON
     }
 
@@ -53,7 +53,6 @@ def publish_facebook_post(input_data, readings, url):
 
 # Getting the text from the input data
 text = input_data["text"]
-fb_page_token = input_data["fb_page_token"]
 
 # Calling the function to process the text with the regular expression
 print(text)
@@ -67,5 +66,5 @@ url_1 = f"https://graph.facebook.com/v14.0/{input_data['page_id_1']}/feed"
 url_2 = f"https://graph.facebook.com/v14.0/{input_data['page_id_2']}/feed"
 
 # Publish to Facebook
-response_1 = publish_facebook_post(input_data, readings, url_1)
-response_2 = publish_facebook_post(input_data, readings, url_2)
+response_1 = publish_facebook_post(input_data, readings, input_data["page_token_1"], url_1)
+response_2 = publish_facebook_post(input_data, readings, input_data["page_token_2"], url_2)
