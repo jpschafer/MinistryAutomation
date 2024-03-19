@@ -20,10 +20,10 @@ def post_video_to_page(input_data):
     page_url_1 = f"https://graph.facebook.com/v14.0/{input_data['page_id_1']}/feed"
     page_url_2 = f"https://graph.facebook.com/v14.0/{input_data['page_id_2']}/feed"
 
-  if re.match(pattern_1, video_title)
-      return publish_facebook_post(input_data, video_title, video_url, input_data["page_token_1"], page_url_1)
-  else if re.match(pattern_2, video_title)
-      return publish_facebook_post(input_data, video_title, video_url, input_data["page_token_2"], page_url_2)
+    if re.match(pattern_1, video_title)
+        return publish_facebook_post(input_data, video_title, video_url, input_data["page_token_1"], page_url_1)
+    else if re.match(pattern_2, video_title)
+        return publish_facebook_post(input_data, video_title, video_url, input_data["page_token_2"], page_url_2)
 
 def publish_facebook_post(input_data, text, url, fb_page_token, page_url):
     # Define the access token for the Facebook Graph API
