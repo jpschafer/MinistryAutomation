@@ -7,7 +7,7 @@ import requests
 
 
 # Defining a function to post video to Correct Page by Title of Video
-def post_video_to_page(input_data):
+def post_video_to_page():
 
     # Get Video Attributes
     video_title = input_data["video_title"]
@@ -23,15 +23,15 @@ def post_video_to_page(input_data):
 
     if re.match(pattern_1, video_title):
         return publish_facebook_post(
-            input_data, video_title, video_url, input_data["page_token_1"], page_url_1
+            video_title, video_url, input_data["page_token_1"], page_url_1
         )
     elif re.match(pattern_2, video_title):
         return publish_facebook_post(
-            input_data, video_title, video_url, input_data["page_token_2"], page_url_2
+            video_title, video_url, input_data["page_token_2"], page_url_2
         )
 
 
-def publish_facebook_post(input_data, text, url, fb_page_token, page_url):
+def publish_facebook_post(text, url, fb_page_token, page_url):
     # Define the access token for the Facebook Graph API
     access_token = input_data.get("access_token")
 
