@@ -5,6 +5,15 @@ import json
 import re
 import requests
 
+def get_fb_token(app_id, app_secret):
+    url = 'https://graph.facebook.com/oauth/access_token'       
+    payload = {
+        'grant_type': 'client_credentials',
+        'client_id': app_id,
+        'client_secret': app_secret
+    }
+    response = requests.post(url, params=payload)
+return response.json()['access_token']
 
 # Defining a function to process the text with a regular expression
 def process_text_with_regex(text):
@@ -26,9 +35,9 @@ def process_text_with_regex(text):
         # If no match was found, returning None
         return None, None
 
-def publish_facebook_post(input_data, readings, url, fb_page_token, page_url):
+def publish_facebook_post(input_data, readings, url, page_url):
     # Define the access token for the Facebook Graph API
-    access_token = input_data.get("access_token")
+    fb_page_token = get_fb_token(input_data['app_id'], input_data['client_secret'])
 
     # Define the headers for the HTTP request
     headers = {
@@ -66,7 +75,7 @@ page_url_1 = f"https://graph.facebook.com/v14.0/{input_data['page_id_1']}/feed"
 page_url_2 = f"https://graph.facebook.com/v14.0/{input_data['page_id_2']}/feed"
 
 # Publish to Facebook
-response_1 = publish_facebook_post(input_data, readings, url, input_data["page_token_1"], page_url_1)
-response_2 = publish_facebook_post(input_data, readings, url, input_data["page_token_2"], page_url_2)
+response_1 = publish_facebook_post(input_data, readings, url, page_url_1)
+response_2 = publish_facebook_post(input_data, readings, url, page_url_2)
 
 output = {"readings": readings, "url": url, "response_1": response_1, "response_2": response_2}
