@@ -13,7 +13,7 @@ def get_fb_token(app_id, app_secret):
         'client_secret': app_secret
     }
     response = requests.post(url, params=payload)
-return response.json()['access_token']
+    return response.json()['access_token']
 
 # Defining a function to process the text with a regular expression
 def process_text_with_regex(text):
