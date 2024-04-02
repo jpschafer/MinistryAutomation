@@ -62,11 +62,11 @@ readings, url = process_text_with_regex(text)
 print(readings, url)
 
 # Define the URL for the Facebook Graph API endpoint to publish a post
-url_1 = f"https://graph.facebook.com/v14.0/{input_data['page_id_1']}/feed"
-url_2 = f"https://graph.facebook.com/v14.0/{input_data['page_id_2']}/feed"
+page_url_1 = f"https://graph.facebook.com/v14.0/{input_data['page_id_1']}/feed"
+page_url_2 = f"https://graph.facebook.com/v14.0/{input_data['page_id_2']}/feed"
 
 # Publish to Facebook
 response_1 = publish_facebook_post(input_data, readings, url, input_data["page_token_1"], page_url_1)
 response_2 = publish_facebook_post(input_data, readings, url, input_data["page_token_2"], page_url_2)
 
-output = {"readings": readings, "url": url, "response_1", response_1 "response_2", response_2}
+output = {"readings": readings, "url": url, "response_1": response_1, "response_2": response_2}
