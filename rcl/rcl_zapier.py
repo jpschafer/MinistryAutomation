@@ -24,7 +24,7 @@ def process_text_with_regex(text):
         return f"{match.group(1)}, {match.group(4)}", match.group(5)
     else:
         # If no match was found, returning None
-        return None
+        return None, None
 
 def publish_facebook_post(input_data, readings, url, fb_page_token, page_url):
     # Define the access token for the Facebook Graph API
