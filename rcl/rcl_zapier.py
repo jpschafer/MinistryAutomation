@@ -5,15 +5,16 @@ import json
 import re
 import requests
 
-def get_fb_token(app_id, app_secret):
-    url = 'https://graph.facebook.com/oauth/access_token'       
-    payload = {
-        'grant_type': 'client_credentials',
-        'client_id': app_id,
-        'client_secret': app_secret
-    }
-    response = requests.post(url, params=payload)
-    return response.json()['access_token']
+def get_pages(user_token):
+    # This code Is "Better" But requires too much time for the Zapier 1 second time limit due to latency. 
+    #url = f'https://graph.facebook.com/v19.0/me/accounts?access_token={user_token}'
+    #print(url)
+    #response = requests.get(url)
+    #return response.json()['data']
+
+    # Unfortunately hardcode your access_tokens for each page here with their ids so you can loop through them
+    response = [{"id": 123, "access_token": 'abc123'}, {"id": 321, "access_token": "cba321"}] 
+    return response
 
 # Defining a function to process the text with a regular expression
 def process_text_with_regex(text):
@@ -35,13 +36,10 @@ def process_text_with_regex(text):
         # If no match was found, returning None
         return None, None
 
-def publish_facebook_post(input_data, readings, url, page_url):
-    # Define the access token for the Facebook Graph API
-    fb_page_token = get_fb_token(input_data['app_id'], input_data['client_secret'])
-
+def publish_facebook_post(input_data, readings, access_token, url, page_url):
     # Define the headers for the HTTP request
     headers = {
-        "Authorization": f"Bearer {fb_page_token}",  # Include the access token in the Authorization header
+        "Authorization": f"Bearer {access_token}",  # Include the access token in the Authorization header
         "Content-Type": "application/json",  # Specify the content type as JSON
     }
 
@@ -52,30 +50,31 @@ def publish_facebook_post(input_data, readings, url, page_url):
     }
 
     # Send a POST request to the Facebook Graph API endpoint to publish the post
-    response = requests.post(page_url, headers=headers, data=json.dumps(data))
-
-    # Print the response from the API
-    print(response.text)
+    try:
+        # Add Timeout to beat Zapier 1 second limit since regex takes a little bit. We just need to fire off a submit successfully.
+        response = requests.post(page_url, headers=headers, data=json.dumps(data),timeout=(None, 0.3))
+    except requests.exceptions.Timeout:
+      print("Timeout occurred")
 
     # Define the output as a dictionary with the key "response" and the value as the response from the API
-    return {"response": response.text}
+    return {"response": "Some Response"}
 
 # Getting the text from the input data
 text = input_data["text"]
 
 # Calling the function to process the text with the regular expression
-print(text)
+#print(text)
 readings, url = process_text_with_regex(text)
 
 # Printing the processed text
-print(readings, url)
+#print(readings, url)
 
-# Define the URL for the Facebook Graph API endpoint to publish a post
-page_url_1 = f"https://graph.facebook.com/v14.0/{input_data['page_id_1']}/feed"
-page_url_2 = f"https://graph.facebook.com/v14.0/{input_data['page_id_2']}/feed"
+fb_pages = get_pages(input_data['system_user_token'])
 
-# Publish to Facebook
-response_1 = publish_facebook_post(input_data, readings, url, page_url_1)
-response_2 = publish_facebook_post(input_data, readings, url, page_url_2)
+responses = []
+for page in fb_pages:
+    page_url = f"https://graph.facebook.com/v19.0/{page['id']}/feed"
+    response = publish_facebook_post(input_data, readings, page['access_token'], url, page_url)
+    responses.append(fb_pages)
 
-output = {"readings": readings, "url": url, "response_1": response_1, "response_2": response_2}
+output = {"readings": readings, "url": url, "responses": responses}
