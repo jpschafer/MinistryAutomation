@@ -48,7 +48,7 @@ def publish_facebook_post(text, url, fb_page_token, page_url):
     }
 
     # Send a POST request to the Facebook Graph API endpoint to publish the post
-    response = requests.post(page_url, headers=headers, data=json.dumps(data))
+    response = requests.post(page_url, headers=headers, data=json.dumps(data), timeout=(None, 0.3))
 
     # Print the response from the API
     print(response.text)
