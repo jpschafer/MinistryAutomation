@@ -48,13 +48,14 @@ def publish_facebook_post(text, url, fb_page_token, page_url):
     }
 
     # Send a POST request to the Facebook Graph API endpoint to publish the post
-    response = requests.post(page_url, headers=headers, data=json.dumps(data), timeout=(None, 0.3))
-
-    # Print the response from the API
-    print(response.text)
-
+    try:
+        # Add Timeout to beat Zapier 1 second limit since regex takes a little bit. We just need to fire off a submit successfully.
+        requests.post(page_url, headers=headers, data=json.dumps(data), timeout=(None, 0.3))
+    except requests.exceptions.Timeout:
+      print("Timeout occurred")
+    
     # Define the output as a dictionary with the key "response" and the value as the response from the API
-    return {"response": response.text}
+    return {"response": "There was an attempt"}
 
 # Publish to Facebook
 response = post_video_to_page()
