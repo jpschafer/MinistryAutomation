@@ -9,9 +9,12 @@
 
 name: Publish Docker image
 
-on:
-  release:
-    types: [published]
+# Until we get this stable, we are going to go for a "DevOps" Approach
+on: [push]
+
+#on:
+#  release:
+#    types: [published]
 
 jobs:
   push_to_registry:
