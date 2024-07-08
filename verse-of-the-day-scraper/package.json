@@ -1,0 +1,26 @@
+{
+  "name": "verse-of-the-day-scraper",
+  "version": "1.0.0",
+  "description": "Scrapes the Verse of the Day Image from YouVersion and Posts it to N-many FB Pages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jpschafer/MinistryAutomation.git"
+  },
+  "author": "Jason Schafer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpschafer/MinistryAutomation/issues"
+  },
+  "homepage": "https://github.com/jpschafer/MinistryAutomation#readme",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "fb": "^2.0.0",
+    "node-cron": "^3.0.3",
+    "node-fetch": "^2.6.0",
+    "puppeteer": "^22.6.3"
+  }
+}
