@@ -2,7 +2,7 @@
   "name": "verse-of-the-day-scraper",
   "version": "1.0.0",
   "description": "Scrapes the Verse of the Day Image from YouVersion and Posts it to N-many FB Pages",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
