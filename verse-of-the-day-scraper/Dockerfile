@@ -9,4 +9,4 @@ COPY --chown=node:node . .
 
 EXPOSE 8080
 
-CMD [ "node", "app.js", "-k", "${ACCESS_TOKEN}", "c", "${VERSE_CRON}" ]
+CMD [ "node", "app.js", "-k", "${ACCESS_TOKEN}", "-c", "${VERSE_CRON}" ]
