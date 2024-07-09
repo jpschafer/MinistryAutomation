@@ -6,7 +6,8 @@ COPY --chown=node:node package*.json ./
 USER node
 RUN npm install
 COPY --chown=node:node . .
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 8080
 
-CMD [ "node", "app.js", "-k", "${ACCESS_TOKEN}", "-c", "${VERSE_CRON}" ]
+ENTRYPOINT ["/entrypoint.sh"]
