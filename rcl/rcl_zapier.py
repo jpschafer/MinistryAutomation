@@ -74,7 +74,7 @@ def publish_facebook_post(input_data, readings, access_token, url, page_url):
 
 
 
-def main(data) {
+def main(data):
     # Getting the text from the input data
     text = input_data["text"]
 
@@ -96,7 +96,7 @@ def main(data) {
         responses.append(fb_pages)
 
     output = {"readings": readings, "url": url, "responses": responses}
-}
+
 
 
 if (input_data) {
